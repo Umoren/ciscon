@@ -1,0 +1,105 @@
+/*
+ * Variables
+ * Global variables for colors, typography, spacing, etc.
+ */
+
+// Brand Colors
+// Using colors from the Ciscon logo (orange and blue)
+$color-primary: #f97116; // Orange from Ciscon logo
+$color-secondary: #023f88; // Deep blue (complementary to orange)
+$color-tertiary: #0a2540; // Dark blue for text and accents
+
+// Neutral Colors
+$color-white: #ffffff;
+$color-light: #f8f9fa;
+$color-light-gray: #e9ecef;
+$color-gray: #6c757d;
+$color-dark-gray: #343a40;
+$color-black: #212529;
+
+// Functional Colors
+$color-success: #28a745;
+$color-info: #17a2b8;
+$color-warning: #ffc107;
+$color-danger: #dc3545;
+
+// Typography
+$font-family-base: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+$font-family-heading: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+$font-family-mono: 'SFMono-Regular', Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+
+// Font Sizes
+$font-size-base: 1rem; // 16px
+$font-size-sm: $font-size-base * 0.875; // 14px
+$font-size-lg: $font-size-base * 1.25; // 20px
+$font-size-xl: $font-size-base * 1.5; // 24px
+$font-size-2xl: $font-size-base * 2; // 32px
+$font-size-3xl: $font-size-base * 3; // 48px
+$font-size-4xl: $font-size-base * 4; // 64px
+
+// Font Weights
+$font-weight-light: 300;
+$font-weight-normal: 400;
+$font-weight-medium: 500;
+$font-weight-semibold: 600;
+$font-weight-bold: 700;
+
+// Line Heights
+$line-height-tight: 1.25;
+$line-height-snug: 1.375;
+$line-height-normal: 1.5;
+$line-height-relaxed: 1.625;
+$line-height-loose: 2;
+
+// Spacing
+$spacing-1: 0.25rem; // 4px
+$spacing-2: 0.5rem; // 8px
+$spacing-3: 0.75rem; // 12px
+$spacing-4: 1rem; // 16px
+$spacing-5: 1.5rem; // 24px
+$spacing-6: 2rem; // 32px
+$spacing-8: 3rem; // 48px
+$spacing-10: 4rem; // 64px
+$spacing-12: 5rem; // 80px
+$spacing-16: 8rem; // 128px
+
+// Breakpoints
+$breakpoint-xs: 0;
+$breakpoint-sm: 576px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 992px;
+$breakpoint-xl: 1200px;
+$breakpoint-xxl: 1400px;
+
+// Z-index
+$z-index-dropdown: 1000;
+$z-index-sticky: 1020;
+$z-index-fixed: 1030;
+$z-index-modal-backdrop: 1040;
+$z-index-modal: 1050;
+$z-index-popover: 1060;
+$z-index-tooltip: 1070;
+
+// Border Radius
+$border-radius-sm: 0.25rem;
+$border-radius: 0.375rem;
+$border-radius-lg: 0.5rem;
+$border-radius-xl: 1rem;
+$border-radius-pill: 50rem;
+
+// Shadows
+$shadow-sm: 0 .125rem .25rem rgba($color-black, .075);
+$shadow: 0 .5rem 1rem rgba($color-black, .15);
+$shadow-lg: 0 1rem 3rem rgba($color-black, .175);
+
+// Transitions
+$transition-base: all .2s ease-in-out;
+$transition-fade: opacity .15s linear;
+$transition-collapse: height .35s ease;
+
+// Container Max Widths
+$container-max-width-sm: 540px;
+$container-max-width-md: 720px;
+$container-max-width-lg: 960px;
+$container-max-width-xl: 1140px;
+$container-max-width-xxl: 1320px;

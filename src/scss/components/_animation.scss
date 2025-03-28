@@ -1,0 +1,350 @@
+/*
+ * Animations
+ * CSS animations and transitions
+ */
+
+// Fade in animation
+@keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  .fade-in {
+    animation: fadeIn 0.5s ease forwards;
+  }
+  
+  // Fade in up animation
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .fade-in-up {
+    animation: fadeInUp 0.5s ease forwards;
+  }
+  
+  // Fade in down animation
+  @keyframes fadeInDown {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .fade-in-down {
+    animation: fadeInDown 0.5s ease forwards;
+  }
+  
+  // Fade in left animation
+  @keyframes fadeInLeft {
+    from {
+      opacity: 0;
+      transform: translateX(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+  
+  .fade-in-left {
+    animation: fadeInLeft 0.5s ease forwards;
+  }
+  
+  // Fade in right animation
+  @keyframes fadeInRight {
+    from {
+      opacity: 0;
+      transform: translateX(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+  
+  .fade-in-right {
+    animation: fadeInRight 0.5s ease forwards;
+  }
+  
+  // Zoom in animation
+  @keyframes zoomIn {
+    from {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+  
+  .zoom-in {
+    animation: zoomIn 0.5s ease forwards;
+  }
+  
+  // Slide in animation
+  @keyframes slideIn {
+    from {
+      transform: translateY(100%);
+    }
+    to {
+      transform: translateY(0);
+    }
+  }
+  
+  .slide-in {
+    animation: slideIn 0.5s ease forwards;
+  }
+  
+  // Pulse animation
+  @keyframes pulse {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.05);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+  
+  .pulse {
+    animation: pulse 2s infinite;
+  }
+  
+  // Bounce animation
+  @keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+      transform: translateY(0);
+    }
+    40% {
+      transform: translateY(-20px);
+    }
+    60% {
+      transform: translateY(-10px);
+    }
+  }
+  
+  .bounce {
+    animation: bounce 2s infinite;
+  }
+  
+  // Spin animation
+  @keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  
+  .spin {
+    animation: spin 1s linear infinite;
+  }
+  
+  // Shake animation
+  @keyframes shake {
+    0%, 100% {
+      transform: translateX(0);
+    }
+    10%, 30%, 50%, 70%, 90% {
+      transform: translateX(-5px);
+    }
+    20%, 40%, 60%, 80% {
+      transform: translateX(5px);
+    }
+  }
+  
+  .shake {
+    animation: shake 0.8s ease-in-out;
+  }
+  
+  // Typing text animation
+  @keyframes typing {
+    from {
+      width: 0;
+    }
+    to {
+      width: 100%;
+    }
+  }
+  
+  @keyframes blink-caret {
+    from, to {
+      border-color: transparent;
+    }
+    50% {
+      border-color: $color-primary;
+    }
+  }
+  
+  .typing-text {
+    display: inline-block;
+    overflow: hidden;
+    white-space: nowrap;
+    border-right: 2px solid $color-primary;
+    animation: 
+      typing 3.5s steps(40, end),
+      blink-caret 0.75s step-end infinite;
+  }
+  
+  // Button hover animation
+  .btn {
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.1);
+      z-index: -1;
+      transform: scaleX(0);
+      transform-origin: right;
+      transition: transform 0.3s ease;
+    }
+    
+    &:hover::before {
+      transform: scaleX(1);
+      transform-origin: left;
+    }
+  }
+  
+  // Card hover effects
+  .card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: $shadow;
+    }
+  }
+  
+  // Image hover effects
+  .img-hover-zoom {
+    overflow: hidden;
+    
+    img {
+      transition: transform 0.5s ease;
+    }
+    
+    &:hover img {
+      transform: scale(1.05);
+    }
+  }
+  
+  // Animation delays
+  @for $i from 1 through 10 {
+    .delay-#{$i}00ms {
+      animation-delay: #{$i * 100}ms;
+    }
+  }
+  
+  // Animated underline for links
+  .link-underline {
+    position: relative;
+    
+    &::after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 2px;
+      bottom: -2px;
+      left: 0;
+      background-color: currentColor;
+      transform: scaleX(0);
+      transform-origin: right;
+      transition: transform 0.3s ease;
+    }
+    
+    &:hover::after {
+      transform: scaleX(1);
+      transform-origin: left;
+    }
+  }
+  
+  // Count up animation for statistics
+  .count-up {
+    transition: color 0.3s ease;
+    
+    &.animate {
+      color: $color-primary;
+    }
+  }
+  
+  // Scroll indicator animation
+  @keyframes scrollIndicator {
+    0% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    100% {
+      opacity: 0;
+      transform: translateY(15px);
+    }
+  }
+  
+  .scroll-indicator {
+    animation: scrollIndicator 1.5s infinite;
+  }
+  
+  // Page transitions
+  .page-transition-enter {
+    opacity: 0;
+  }
+  
+  .page-transition-enter-active {
+    opacity: 1;
+    transition: opacity 300ms ease-in;
+  }
+  
+  .page-transition-exit {
+    opacity: 1;
+  }
+  
+  .page-transition-exit-active {
+    opacity: 0;
+    transition: opacity 300ms ease-out;
+  }
+  
+  // Navbar scroll animation
+  .site-header {
+    transition: padding 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+    
+    &.scrolled {
+      padding-top: $spacing-2;
+      padding-bottom: $spacing-2;
+      background-color: $color-white;
+      box-shadow: $shadow;
+    }
+  }
+  
+  // For AOS animations
+  [data-aos] {
+    pointer-events: none;
+    
+    &.aos-animate {
+      pointer-events: auto;
+    }
+  }

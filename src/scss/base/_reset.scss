@@ -1,0 +1,142 @@
+/*
+ * CSS Reset
+ * A modern CSS reset inspired by Andy Bell's
+ * https://andy-bell.co.uk/a-modern-css-reset/
+ */
+
+/* Box sizing rules */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Remove default margin and padding */
+html,
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+figure,
+blockquote,
+dl,
+dd,
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+}
+
+/* Set core body defaults */
+body {
+  min-height: 100vh;
+  text-rendering: optimizeSpeed;
+  line-height: $line-height-normal;
+  font-family: $font-family-base;
+  font-size: $font-size-base;
+  color: $color-black;
+  background-color: $color-white;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Remove list styles on ul, ol elements */
+ul,
+ol {
+  list-style: none;
+}
+
+/* Set default text styles for headings and paragraphs */
+h1, h2, h3, h4, h5, h6 {
+  font-family: $font-family-heading;
+}
+
+p {
+  margin-bottom: $spacing-4;
+}
+
+/* Make images easier to work with */
+img,
+picture,
+svg {
+  max-width: 100%;
+  display: block;
+}
+
+/* Inherit fonts for inputs and buttons */
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+/* Remove all animations, transitions and smooth scroll for people who prefer not to see them */
+@media (prefers-reduced-motion: reduce) {
+  html:focus-within {
+    scroll-behavior: auto;
+  }
+  
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Set core anchor defaults */
+a {
+  text-decoration: none;
+  color: $color-primary;
+  transition: $transition-base;
+  
+  &:hover {
+    color: darken($color-primary, 10%);
+  }
+}
+
+/* Remove border on focused elements */
+:focus {
+  outline: none;
+}
+
+/* Focus visible utility */
+:focus-visible {
+  outline: 2px solid $color-primary;
+  outline-offset: 2px;
+}
+
+/* Table formatting */
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th {
+  text-align: left;
+}
+
+/* Form element defaults */
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  padding: 0;
+}
+
+fieldset {
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+select {
+  appearance: none;
+}

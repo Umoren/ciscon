@@ -1,0 +1,450 @@
+/*
+ * Header
+ * Header layout styles
+ */
+
+// Top bar
+.top-bar {
+    background-color: $color-tertiary;
+    color: $color-white;
+    padding: $spacing-2 0;
+    font-size: $font-size-sm;
+    
+    &-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: $spacing-2;
+      
+      @media (max-width: #{$breakpoint-md - 1px}) {
+        justify-content: center;
+      }
+    }
+    
+    &-contact {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: $spacing-4;
+      
+      a {
+        color: $color-white;
+        display: flex;
+        align-items: center;
+        
+        &:hover {
+          color: rgba($color-white, 0.8);
+          text-decoration: none;
+        }
+        
+        svg, i {
+          margin-right: $spacing-1;
+        }
+      }
+    }
+    
+    &-social {
+      display: flex;
+      align-items: center;
+      gap: $spacing-2;
+      
+      a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 28px;
+        height: 28px;
+        color: $color-white;
+        border-radius: 50%;
+        transition: $transition-base;
+        
+        &:hover {
+          background-color: rgba($color-white, 0.2);
+          color: $color-white;
+        }
+      }
+    }
+  }
+  
+  // Main header
+  .site-header {
+    position: relative;
+    background-color: $color-white;
+    box-shadow: 0 1px 0 rgba($color-black, 0.1);
+    
+    &-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: $spacing-4 0;
+      
+      @include respond-to(lg) {
+        padding: 0;
+      }
+    }
+    
+    // Logo area
+    &-logo {
+      display: flex;
+      align-items: center;
+      
+      img {
+        max-height: 60px;
+        width: auto;
+      }
+      
+      @include respond-to(lg) {
+        padding: $spacing-4 0;
+      }
+    }
+    
+    // Navigation area
+    &-nav {
+      @media (max-width: #{$breakpoint-lg - 1px}) {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background-color: $color-white;
+        padding: $spacing-4;
+        box-shadow: 0 4px 6px rgba($color-black, 0.1);
+        z-index: 100;
+        
+        &.active {
+          display: block;
+        }
+      }
+      
+      @include respond-to(lg) {
+        display: flex;
+        align-items: center;
+      }
+      
+      ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        
+        @include respond-to(lg) {
+          display: flex;
+        }
+        
+        li {
+          position: relative;
+          margin-bottom: $spacing-2;
+          
+          @include respond-to(lg) {
+            margin-bottom: 0;
+          }
+          
+          a {
+            display: block;
+            color: $color-tertiary;
+            padding: $spacing-2 $spacing-4;
+            font-weight: $font-weight-medium;
+            transition: $transition-base;
+            
+            &:hover {
+              color: $color-primary;
+              text-decoration: none;
+            }
+            
+            &.active {
+              color: $color-primary;
+            }
+          }
+          
+          // Dropdown menu
+          &.has-dropdown {
+            > a::after {
+              content: '';
+              display: inline-block;
+              width: 0;
+              height: 0;
+              margin-left: $spacing-2;
+              border-top: 4px solid currentColor;
+              border-right: 4px solid transparent;
+              border-left: 4px solid transparent;
+              vertical-align: middle;
+            }
+            
+            > .dropdown {
+              display: none;
+              list-style: none;
+              padding: $spacing-2 0;
+              margin: 0;
+              background-color: $color-white;
+              
+              @include respond-to(lg) {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                min-width: 200px;
+                z-index: 100;
+                box-shadow: 0 4px 6px rgba($color-black, 0.1);
+                border-radius: $border-radius;
+              }
+              
+              li {
+                margin-bottom: 0;
+                
+                a {
+                  padding: $spacing-2 $spacing-4;
+                  
+                  @include respond-to(lg) {
+                    padding: $spacing-2 $spacing-4;
+                  }
+                  
+                  &:hover {
+                    @include respond-to(lg) {
+                      background-color: $color-light;
+                    }
+                  }
+                }
+              }
+            }
+            
+            &:hover > .dropdown,
+            &:focus-within > .dropdown {
+              display: block;
+            }
+          }
+        }
+      }
+    }
+    
+    // CTA area
+    &-cta {
+      display: flex;
+      align-items: center;
+      gap: $spacing-3;
+      
+      @media (max-width: #{$breakpoint-sm - 1px}) {
+        display: none;
+      }
+    }
+    
+    // Mobile menu toggle
+    &-toggle {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 30px;
+      height: 20px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      
+      span {
+        display: block;
+        height: 2px;
+        width: 100%;
+        background-color: $color-tertiary;
+        transition: transform 0.3s ease;
+      }
+      
+      &.active {
+        span:nth-child(1) {
+          transform: translateY(9px) rotate(45deg);
+        }
+        span:nth-child(2) {
+          opacity: 0;
+        }
+        span:nth-child(3) {
+          transform: translateY(-9px) rotate(-45deg);
+        }
+      }
+      
+      @include respond-to(lg) {
+        display: none;
+      }
+    }
+  }
+  
+  // Hero section
+  .hero {
+    position: relative;
+    background-color: $color-tertiary;
+    color: $color-white;
+    padding: $spacing-10 0;
+    overflow: hidden;
+    
+    @include respond-to(md) {
+      padding: $spacing-16 0;
+    }
+    
+    &-content {
+      position: relative;
+      z-index: 2;
+      max-width: 600px;
+      
+      @include respond-to(lg) {
+        max-width: 50%;
+      }
+    }
+    
+    &-title {
+      font-size: $font-size-3xl;
+      font-weight: $font-weight-bold;
+      margin-bottom: $spacing-4;
+      
+      @include respond-to(md) {
+        font-size: $font-size-4xl;
+      }
+    }
+    
+    &-subtitle {
+      font-size: $font-size-lg;
+      margin-bottom: $spacing-6;
+      opacity: 0.9;
+      
+      @include respond-to(md) {
+        font-size: $font-size-xl;
+      }
+    }
+    
+    &-cta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: $spacing-3;
+    }
+    
+    &-image {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 50%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.4;
+      
+      @media (max-width: #{$breakpoint-lg - 1px}) {
+        display: none;
+      }
+    }
+    
+    &-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, $color-tertiary 0%, rgba($color-tertiary, 0.8) 100%);
+      z-index: 1;
+    }
+    
+    // Slider hero
+    &-slider {
+      .hero-slide {
+        display: none;
+        
+        &.active {
+          display: block;
+        }
+      }
+      
+      .hero-controls {
+        position: absolute;
+        bottom: $spacing-6;
+        left: 0;
+        right: 0;
+        z-index: 3;
+        display: flex;
+        justify-content: center;
+        gap: $spacing-2;
+        
+        button {
+          width: 12px;
+          height: 12px;
+          border-radius: 50%;
+          background-color: rgba($color-white, 0.3);
+          border: none;
+          padding: 0;
+          cursor: pointer;
+          transition: $transition-base;
+          
+          &.active {
+            background-color: $color-white;
+            transform: scale(1.2);
+          }
+        }
+      }
+    }
+    
+    // Video hero
+    &-video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 1;
+      opacity: 0.6;
+    }
+    
+    // Animated wave at bottom
+    &-wave {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      z-index: 2;
+    }
+  }
+  
+  // Page header
+  .page-header {
+    background-color: $color-light;
+    padding: $spacing-8 0;
+    margin-bottom: $spacing-8;
+    position: relative;
+    overflow: hidden;
+    
+    &-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+    }
+    
+    &-title {
+      font-size: $font-size-2xl;
+      font-weight: $font-weight-bold;
+      color: $color-tertiary;
+      margin-bottom: $spacing-2;
+      
+      @include respond-to(md) {
+        font-size: $font-size-3xl;
+      }
+    }
+    
+    &-description {
+      font-size: $font-size-lg;
+      color: $color-gray;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    
+    &-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba($color-white, 0.3);
+      z-index: 1;
+    }
+    
+    &-image {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.2;
+      z-index: 0;
+    }
+  }

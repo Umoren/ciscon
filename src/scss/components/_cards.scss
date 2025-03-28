@@ -1,0 +1,615 @@
+/*
+ * Cards
+ * Card component styles
+ */
+
+// Base card style
+.card {
+    @include card;
+    margin-bottom: $spacing-6;
+    
+    // Card header
+    &-header {
+      padding: $spacing-4;
+      border-bottom: 1px solid $color-light-gray;
+      background-color: $color-light;
+      
+      &:first-child {
+        border-top-left-radius: calc(#{$border-radius} - 1px);
+        border-top-right-radius: calc(#{$border-radius} - 1px);
+      }
+    }
+    
+    // Card body
+    &-body {
+      padding: $spacing-4;
+      flex: 1 1 auto;
+    }
+    
+    // Card footer
+    &-footer {
+      padding: $spacing-4;
+      border-top: 1px solid $color-light-gray;
+      background-color: $color-light;
+      
+      &:last-child {
+        border-bottom-left-radius: calc(#{$border-radius} - 1px);
+        border-bottom-right-radius: calc(#{$border-radius} - 1px);
+      }
+    }
+    
+    // Card title
+    &-title {
+      margin-bottom: $spacing-3;
+      font-size: $font-size-lg;
+      font-weight: $font-weight-semibold;
+    }
+    
+    // Card subtitle
+    &-subtitle {
+      margin-top: -$spacing-2;
+      margin-bottom: $spacing-3;
+      color: $color-gray;
+    }
+    
+    // Card text
+    &-text {
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+    
+    // Card link
+    &-link {
+      + .card-link {
+        margin-left: $spacing-4;
+      }
+    }
+    
+    // Card image
+    &-img-top {
+      width: 100%;
+      border-top-left-radius: calc(#{$border-radius} - 1px);
+      border-top-right-radius: calc(#{$border-radius} - 1px);
+    }
+    
+    &-img-bottom {
+      width: 100%;
+      border-bottom-left-radius: calc(#{$border-radius} - 1px);
+      border-bottom-right-radius: calc(#{$border-radius} - 1px);
+    }
+    
+    &-img-overlay {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      padding: $spacing-4;
+      border-radius: $border-radius;
+      background-color: rgba($color-black, 0.6);
+      color: $color-white;
+    }
+    
+    // Card group
+    &-group {
+      display: flex;
+      flex-direction: column;
+      
+      @include respond-to(md) {
+        flex-flow: row wrap;
+      }
+      
+      > .card {
+        margin-bottom: 0;
+        
+        + .card {
+          margin-left: 0;
+          border-left: 0;
+        }
+        
+        // Handle rounded corners
+        &:not(:last-child) {
+          border-bottom-right-radius: 0;
+          border-bottom-left-radius: 0;
+          
+          @include respond-to(md) {
+            border-bottom-right-radius: $border-radius;
+            border-right: 0;
+            border-bottom-left-radius: 0;
+          }
+          
+          .card-img-top,
+          .card-header {
+            border-bottom-right-radius: 0;
+            
+            @include respond-to(md) {
+              border-top-right-radius: 0;
+            }
+          }
+          
+          .card-img-bottom,
+          .card-footer {
+            border-bottom-right-radius: 0;
+            border-bottom-left-radius: 0;
+            
+            @include respond-to(md) {
+              border-bottom-left-radius: $border-radius;
+              border-bottom-right-radius: 0;
+            }
+          }
+        }
+        
+        &:not(:first-child) {
+          border-top-left-radius: 0;
+          border-top-right-radius: 0;
+          
+          @include respond-to(md) {
+            border-top-left-radius: 0;
+            border-top-right-radius: $border-radius;
+          }
+          
+          .card-img-top,
+          .card-header {
+            border-top-left-radius: 0;
+            border-top-right-radius: 0;
+            
+            @include respond-to(md) {
+              border-top-right-radius: $border-radius;
+              border-top-left-radius: 0;
+            }
+          }
+        }
+      }
+    }
+  }
+  
+  // Service card
+  .service-card {
+    @include card;
+    margin-bottom: $spacing-6;
+    padding: $spacing-6;
+    text-align: center;
+    
+    &-icon {
+      margin: 0 auto $spacing-4;
+      width: 80px;
+      height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: $font-size-3xl;
+      color: $color-primary;
+      background-color: rgba($color-primary, 0.1);
+      border-radius: 50%;
+    }
+    
+    &-title {
+      margin-bottom: $spacing-3;
+      font-size: $font-size-xl;
+      font-weight: $font-weight-semibold;
+      color: $color-tertiary;
+    }
+    
+    &-text {
+      margin-bottom: $spacing-4;
+      color: $color-dark-gray;
+    }
+    
+    &-link {
+      font-weight: $font-weight-medium;
+      color: $color-primary;
+      
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+  
+  // Team member card
+  .team-card {
+    @include card;
+    margin-bottom: $spacing-6;
+    text-align: center;
+    overflow: hidden;
+    
+    &-img {
+      width: 100%;
+      height: 300px;
+      object-fit: cover;
+    }
+    
+    &-body {
+      padding: $spacing-4;
+    }
+    
+    &-name {
+      margin-bottom: $spacing-2;
+      font-size: $font-size-lg;
+      font-weight: $font-weight-semibold;
+      color: $color-tertiary;
+    }
+    
+    &-position {
+      margin-bottom: $spacing-3;
+      font-size: $font-size-sm;
+      color: $color-gray;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    
+    &-bio {
+      margin-bottom: $spacing-3;
+      color: $color-dark-gray;
+    }
+    
+    &-social {
+      display: flex;
+      justify-content: center;
+      gap: $spacing-2;
+      
+      a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        background-color: $color-light-gray;
+        color: $color-dark-gray;
+        transition: $transition-base;
+        
+        &:hover {
+          background-color: $color-primary;
+          color: $color-white;
+        }
+      }
+    }
+  }
+  
+  // Project card
+  .project-card {
+    @include card;
+    margin-bottom: $spacing-6;
+    overflow: hidden;
+    
+    &-img-wrapper {
+      position: relative;
+      overflow: hidden;
+      height: 240px;
+      
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+      }
+    }
+    
+    &:hover &-img-wrapper img {
+      transform: scale(1.05);
+    }
+    
+    &-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to bottom, rgba($color-tertiary, 0) 0%, rgba($color-tertiary, 0.8) 100%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    &:hover &-overlay {
+      opacity: 1;
+    }
+    
+    &-action {
+      transform: translateY(20px);
+      transition: transform 0.3s ease;
+    }
+    
+    &:hover &-action {
+      transform: translateY(0);
+    }
+    
+    &-body {
+      padding: $spacing-4;
+    }
+    
+    &-title {
+      margin-bottom: $spacing-2;
+      font-size: $font-size-lg;
+      font-weight: $font-weight-semibold;
+      color: $color-tertiary;
+    }
+    
+    &-category {
+      margin-bottom: $spacing-3;
+      font-size: $font-size-sm;
+      color: $color-primary;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    
+    &-description {
+      margin-bottom: $spacing-3;
+      color: $color-dark-gray;
+    }
+  }
+  
+  // Testimonial card
+  .testimonial-card {
+    @include card;
+    margin-bottom: $spacing-6;
+    padding: $spacing-6;
+    
+    &-quote {
+      position: relative;
+      padding-left: $spacing-8;
+      margin-bottom: $spacing-4;
+      font-style: italic;
+      color: $color-dark-gray;
+      
+      &::before {
+        content: '"';
+        position: absolute;
+        left: 0;
+        top: -$spacing-3;
+        font-size: $font-size-4xl;
+        color: $color-primary;
+        opacity: 0.5;
+        line-height: 1;
+      }
+    }
+    
+    &-author {
+      display: flex;
+      align-items: center;
+    }
+    
+    &-avatar {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      margin-right: $spacing-3;
+      object-fit: cover;
+    }
+    
+    &-info {
+      flex: 1;
+    }
+    
+    &-name {
+      margin-bottom: $spacing-1;
+      font-size: $font-size-base;
+      font-weight: $font-weight-semibold;
+      color: $color-tertiary;
+    }
+    
+    &-position {
+      font-size: $font-size-sm;
+      color: $color-gray;
+    }
+  }
+  
+  // Pricing card
+  .pricing-card {
+    @include card;
+    margin-bottom: $spacing-6;
+    text-align: center;
+    padding: $spacing-6;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    
+    &:hover {
+      transform: translateY(-10px);
+      box-shadow: $shadow-lg;
+    }
+    
+    &-header {
+      margin-bottom: $spacing-4;
+    }
+    
+    &-title {
+      margin-bottom: $spacing-2;
+      font-size: $font-size-xl;
+      font-weight: $font-weight-bold;
+      color: $color-tertiary;
+    }
+    
+    &-subtitle {
+      color: $color-gray;
+      font-size: $font-size-sm;
+    }
+    
+    &-price {
+      margin-bottom: $spacing-6;
+      
+      .currency {
+        font-size: $font-size-xl;
+        font-weight: $font-weight-normal;
+        vertical-align: super;
+      }
+      
+      .amount {
+        font-size: $font-size-4xl;
+        font-weight: $font-weight-bold;
+        color: $color-tertiary;
+      }
+      
+      .period {
+        font-size: $font-size-base;
+        color: $color-gray;
+      }
+    }
+    
+    &-features {
+      margin-bottom: $spacing-6;
+      padding: 0;
+      list-style: none;
+      
+      li {
+        padding: $spacing-2 0;
+        border-bottom: 1px solid $color-light-gray;
+        
+        &:last-child {
+          border-bottom: none;
+        }
+      }
+    }
+    
+    &-action {
+      margin-top: auto;
+    }
+    
+    &--featured {
+      border-color: $color-primary;
+      position: relative;
+      
+      &::before {
+        content: 'Popular';
+        position: absolute;
+        top: $spacing-3;
+        right: $spacing-3;
+        padding: $spacing-1 $spacing-2;
+        background-color: $color-primary;
+        color: $color-white;
+        font-size: $font-size-sm;
+        font-weight: $font-weight-semibold;
+        border-radius: $border-radius-sm;
+      }
+    }
+  }
+  
+  // Stats card
+  .stats-card {
+    @include card;
+    padding: $spacing-6;
+    margin-bottom: $spacing-6;
+    text-align: center;
+    
+    &-icon {
+      margin: 0 auto $spacing-4;
+      width: 64px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: $font-size-2xl;
+      color: $color-primary;
+    }
+    
+    &-number {
+      margin-bottom: $spacing-2;
+      font-size: $font-size-3xl;
+      font-weight: $font-weight-bold;
+      color: $color-tertiary;
+    }
+    
+    &-label {
+      color: $color-gray;
+      font-size: $font-size-base;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+  }
+  
+  // Blog post card
+  .blog-card {
+    @include card;
+    margin-bottom: $spacing-6;
+    overflow: hidden;
+    
+    &-img-wrapper {
+      position: relative;
+      overflow: hidden;
+      height: 220px;
+      
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+      }
+    }
+    
+    &:hover &-img-wrapper img {
+      transform: scale(1.05);
+    }
+    
+    &-body {
+      padding: $spacing-4;
+    }
+    
+    &-title {
+      margin-bottom: $spacing-2;
+      font-size: $font-size-lg;
+      font-weight: $font-weight-semibold;
+      color: $color-tertiary;
+      
+      a {
+        color: inherit;
+        
+        &:hover {
+          color: $color-primary;
+        }
+      }
+    }
+    
+    &-meta {
+      margin-bottom: $spacing-3;
+      display: flex;
+      flex-wrap: wrap;
+      gap: $spacing-3;
+      font-size: $font-size-sm;
+      color: $color-gray;
+      
+      span {
+        display: flex;
+        align-items: center;
+        
+        svg, i {
+          margin-right: $spacing-1;
+        }
+      }
+    }
+    
+    &-excerpt {
+      margin-bottom: $spacing-3;
+      color: $color-dark-gray;
+    }
+    
+    &-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: $spacing-3;
+      border-top: 1px solid $color-light-gray;
+    }
+    
+    &-author {
+      display: flex;
+      align-items: center;
+      
+      img {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        margin-right: $spacing-2;
+        object-fit: cover;
+      }
+    }
+    
+    &-read-more {
+      font-weight: $font-weight-medium;
+      color: $color-primary;
+      
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }

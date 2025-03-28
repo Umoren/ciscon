@@ -1,0 +1,130 @@
+/*
+ * Functions
+ * SCSS functions for calculations and transformations
+ */
+
+// Convert pixels to rem
+@function rem($pixels, $context: 16) {
+    @return ($pixels / $context) * 1rem;
+  }
+  
+  // Convert pixels to em
+  @function em($pixels, $context: 16) {
+    @return ($pixels / $context) * 1em;
+  }
+  
+  // Strips the unit from a number
+  @function strip-unit($number) {
+    @if type-of($number) == 'number' and not unitless($number) {
+      @return $number / ($number * 0 + 1);
+    }
+    @return $number;
+  }
+  
+  // Color functions
+  
+  // Calculates the color contrast ratio
+  @function color-contrast($color) {
+    $luminance: color-luminance($color);
+    
+    @if ($luminance > 0.55) {
+      @return $color-dark-gray;
+    } @else {
+      @return $color-white;
+    }
+  }
+  
+  // Calculate color luminance
+  @function color-luminance($color) {
+    $red: red($color) / 255;
+    $green: green($color) / 255;
+    $blue: blue($color) / 255;
+    
+    $red: if($red <= 0.03928, $red / 12.92, pow(($red + 0.055) / 1.055, 2.4));
+    $green: if($green <= 0.03928, $green / 12.92, pow(($green + 0.055) / 1.055, 2.4));
+    $blue: if($blue <= 0.03928, $blue / 12.92, pow(($blue + 0.055) / 1.055, 2.4));
+    
+    @return (0.2126 * $red) + (0.7152 * $green) + (0.0722 * $blue);
+  }
+  
+  // Calculate color opacity
+  @function color-opacity($color, $opacity) {
+    @return rgba($color, $opacity);
+  }
+  
+  // Safe divide function to prevent division by zero errors
+  @function safe-divide($dividend, $divisor) {
+    @if $divisor == 0 {
+      @error "Division by zero";
+    }
+    @return $dividend / $divisor;
+  }
+  
+  // Z-index manager to keep track of z-index values
+  $z-indexes: ();
+  
+  @function z($name) {
+    @if index($z-indexes, $name) {
+      @return (length($z-indexes) - index($z-indexes, $name)) + 1;
+    }
+    
+    @warn 'There is no item "#{$name}" in this list; choose one of: #{$z-indexes}';
+    @return null;
+  }
+  
+  // List functions
+  
+  // Get value from a nested map
+  @function map-deep-get($map, $keys...) {
+    @each $key in $keys {
+      $map: map-get($map, $key);
+    }
+    
+    @return $map;
+  }
+  
+  // Calculate fluid sizes for responsive typography
+  @function fluid-size($min-size, $max-size, $min-width: $breakpoint-sm, $max-width: $breakpoint-xl) {
+    $factor: 1 / ($max-width - $min-width) * ($max-size - $min-size);
+    $calc-value: unquote('#{ $min-size - ($min-width * $factor) } + #{ 100vw * $factor }');
+    
+    @return clamp(#{$min-size}, #{$calc-value}, #{$max-size});
+  }
+  
+  // Breakpoint function for cleaner media queries
+  @function breakpoint-min($breakpoint) {
+    @return if($breakpoint == 0, 0, $breakpoint);
+  }
+  
+  @function breakpoint-max($breakpoint) {
+    @return if($breakpoint == 0, 0, $breakpoint - 1px);
+  }
+  
+  // Breakpoint up/down functions for simpler media queries
+  @mixin media-breakpoint-up($breakpoint) {
+    @media (min-width: $breakpoint) {
+      @content;
+    }
+  }
+  
+  @mixin media-breakpoint-down($breakpoint) {
+    @media (max-width: #{$breakpoint - 1px}) {
+      @content;
+    }
+  }
+  
+  // Convert degrees to radians for animations
+  @function deg-to-rad($deg) {
+    @return $deg * pi() / 180;
+  }
+  
+  // Simple power function for exponentiation
+  @function pow($base, $exponent) {
+    $result: 1;
+    
+    @for $i from 1 through abs($exponent) {
+      $result: $result * $base;
+    }
+    
+    @return if($exponent < 0, 1 / $result, $result);
+  }

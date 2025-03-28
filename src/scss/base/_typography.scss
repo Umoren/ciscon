@@ -1,0 +1,321 @@
+/*
+ * Typography
+ * Typography styles for the website
+ */
+
+// Headings
+h1, .h1 {
+    @include heading-1;
+    margin-bottom: $spacing-6;
+    color: $color-tertiary;
+  }
+  
+  h2, .h2 {
+    @include heading-2;
+    margin-bottom: $spacing-5;
+    color: $color-tertiary;
+  }
+  
+  h3, .h3 {
+    @include heading-3;
+    margin-bottom: $spacing-4;
+    color: $color-tertiary;
+  }
+  
+  h4, .h4 {
+    font-size: $font-size-lg;
+    font-weight: $font-weight-semibold;
+    line-height: $line-height-snug;
+    margin-bottom: $spacing-3;
+    color: $color-tertiary;
+  }
+  
+  h5, .h5 {
+    font-size: $font-size-base;
+    font-weight: $font-weight-semibold;
+    line-height: $line-height-snug;
+    margin-bottom: $spacing-2;
+    color: $color-tertiary;
+  }
+  
+  h6, .h6 {
+    font-size: $font-size-sm;
+    font-weight: $font-weight-semibold;
+    line-height: $line-height-snug;
+    margin-bottom: $spacing-2;
+    color: $color-tertiary;
+  }
+  
+  // Paragraphs
+  p {
+    margin-bottom: $spacing-4;
+    font-size: $font-size-base;
+    line-height: $line-height-relaxed;
+    color: $color-dark-gray;
+    
+    &.lead {
+      font-size: $font-size-lg;
+      font-weight: $font-weight-normal;
+      line-height: $line-height-normal;
+    }
+    
+    &.small {
+      font-size: $font-size-sm;
+      line-height: $line-height-normal;
+    }
+  }
+  
+  // Links
+  a {
+    color: $color-primary;
+    text-decoration: none;
+    transition: $transition-base;
+    
+    &:hover, &:focus {
+      color: darken($color-primary, 15%);
+      text-decoration: underline;
+    }
+    
+    &.text-link {
+      position: relative;
+      font-weight: $font-weight-medium;
+      
+      &::after {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 2px;
+        bottom: -2px;
+        left: 0;
+        background-color: currentColor;
+        transform: scaleX(0);
+        transform-origin: right;
+        transition: transform 0.3s ease;
+      }
+      
+      &:hover::after, &:focus::after {
+        transform: scaleX(1);
+        transform-origin: left;
+      }
+    }
+  }
+  
+  // Lists
+  ul, ol {
+    margin-bottom: $spacing-4;
+    padding-left: $spacing-4;
+    
+    li {
+      margin-bottom: $spacing-2;
+    }
+  }
+  
+  ul {
+    list-style-type: disc;
+    
+    ul {
+      list-style-type: circle;
+      margin-top: $spacing-2;
+    }
+  }
+  
+  ol {
+    list-style-type: decimal;
+    
+    ol {
+      list-style-type: lower-alpha;
+      margin-top: $spacing-2;
+    }
+  }
+  
+  // Description Lists
+  dl {
+    margin-bottom: $spacing-4;
+    
+    dt {
+      font-weight: $font-weight-bold;
+      margin-bottom: $spacing-1;
+    }
+    
+    dd {
+      margin-bottom: $spacing-3;
+      margin-left: 0;
+    }
+  }
+  
+  // Blockquotes
+  blockquote {
+    margin: $spacing-6 0;
+    padding: $spacing-4 $spacing-6;
+    border-left: 4px solid $color-primary;
+    background-color: $color-light;
+    font-style: italic;
+    
+    p:last-child {
+      margin-bottom: 0;
+    }
+    
+    cite {
+      display: block;
+      margin-top: $spacing-3;
+      font-style: normal;
+      font-weight: $font-weight-semibold;
+      font-size: $font-size-sm;
+    }
+  }
+  
+  // Code
+  code, pre {
+    font-family: $font-family-mono;
+    font-size: 0.9em;
+    border-radius: $border-radius-sm;
+  }
+  
+  code {
+    padding: 0.2em 0.4em;
+    background-color: $color-light-gray;
+  }
+  
+  pre {
+    padding: $spacing-3;
+    margin-bottom: $spacing-4;
+    background-color: $color-light-gray;
+    overflow-x: auto;
+    
+    code {
+      padding: 0;
+      background-color: transparent;
+    }
+  }
+  
+  // Text utilities
+  .text-center {
+    text-align: center;
+  }
+  
+  .text-right {
+    text-align: right;
+  }
+  
+  .text-left {
+    text-align: left;
+  }
+  
+  .text-justify {
+    text-align: justify;
+  }
+  
+  .text-uppercase {
+    text-transform: uppercase;
+  }
+  
+  .text-lowercase {
+    text-transform: lowercase;
+  }
+  
+  .text-capitalize {
+    text-transform: capitalize;
+  }
+  
+  .text-bold {
+    font-weight: $font-weight-bold;
+  }
+  
+  .text-medium {
+    font-weight: $font-weight-medium;
+  }
+  
+  .text-normal {
+    font-weight: $font-weight-normal;
+  }
+  
+  // Text colors
+  .text-primary {
+    color: $color-primary;
+  }
+  
+  .text-secondary {
+    color: $color-secondary;
+  }
+  
+  .text-tertiary {
+    color: $color-tertiary;
+  }
+  
+  .text-white {
+    color: $color-white;
+  }
+  
+  .text-light {
+    color: $color-light;
+  }
+  
+  .text-gray {
+    color: $color-gray;
+  }
+  
+  .text-dark {
+    color: $color-dark-gray;
+  }
+  
+  .text-black {
+    color: $color-black;
+  }
+  
+  .text-success {
+    color: $color-success;
+  }
+  
+  .text-info {
+    color: $color-info;
+  }
+  
+  .text-warning {
+    color: $color-warning;
+  }
+  
+  .text-danger {
+    color: $color-danger;
+  }
+  
+  // Special heading styles for key sections
+  .section-heading {
+    position: relative;
+    margin-bottom: $spacing-8;
+    
+    &::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -$spacing-3;
+      width: 80px;
+      height: 4px;
+      background-color: $color-primary;
+    }
+    
+    &--center {
+      text-align: center;
+      
+      &::after {
+        left: 50%;
+        transform: translateX(-50%);
+      }
+    }
+  }
+  
+  // Quotation marks for testimonials
+  .quote-marks {
+    position: relative;
+    padding-left: $spacing-8;
+    
+    &::before {
+      content: '"';
+      position: absolute;
+      left: 0;
+      top: -$spacing-3;
+      font-size: $font-size-4xl;
+      color: $color-primary;
+      opacity: 0.5;
+      line-height: 1;
+    }
+  }

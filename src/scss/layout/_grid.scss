@@ -1,0 +1,285 @@
+/*
+ * Grid System
+ * Responsive grid layout system
+ */
+
+// Container
+.container {
+    @include container;
+  }
+  
+  .container-fluid {
+    width: 100%;
+    padding-right: $spacing-4;
+    padding-left: $spacing-4;
+    margin-right: auto;
+    margin-left: auto;
+  }
+  
+  // Container with maximum widths at specific breakpoints
+  @each $breakpoint, $container-max-width in (
+    sm: $container-max-width-sm,
+    md: $container-max-width-md,
+    lg: $container-max-width-lg,
+    xl: $container-max-width-xl,
+    xxl: $container-max-width-xxl
+  ) {
+    .container-#{$breakpoint} {
+      width: 100%;
+      padding-right: $spacing-4;
+      padding-left: $spacing-4;
+      margin-right: auto;
+      margin-left: auto;
+      
+      @include respond-to($breakpoint) {
+        max-width: $container-max-width;
+      }
+    }
+  }
+  
+  // Row
+  .row {
+    @include make-row;
+  }
+  
+  // No gutters
+  .row-no-gutters {
+    margin-right: 0;
+    margin-left: 0;
+    
+    > .col,
+    > [class*="col-"] {
+      padding-right: 0;
+      padding-left: 0;
+    }
+  }
+  
+  // Columns
+  .col {
+    flex: 1 0 0%;
+    padding-right: $spacing-4 / 2;
+    padding-left: $spacing-4 / 2;
+  }
+  
+  .col-auto {
+    flex: 0 0 auto;
+    width: auto;
+    padding-right: $spacing-4 / 2;
+    padding-left: $spacing-4 / 2;
+  }
+  
+  // Column sizes
+  @for $i from 1 through 12 {
+    .col-#{$i} {
+      @include make-col($i);
+    }
+  }
+  
+  // Responsive columns
+  @each $breakpoint in (sm, md, lg, xl, xxl) {
+    @include respond-to($breakpoint) {
+      .col-#{$breakpoint} {
+        flex: 1 0 0%;
+      }
+      
+      .col-#{$breakpoint}-auto {
+        flex: 0 0 auto;
+        width: auto;
+      }
+      
+      @for $i from 1 through 12 {
+        .col-#{$breakpoint}-#{$i} {
+          @include make-col($i);
+        }
+      }
+    }
+  }
+  
+  // Order classes
+  @each $breakpoint in (xs, sm, md, lg, xl, xxl) {
+    $infix: if($breakpoint == xs, "", "-#{$breakpoint}");
+    
+    .order#{$infix}-first {
+      order: -1 !important;
+    }
+    
+    .order#{$infix}-last {
+      order: 13 !important;
+    }
+    
+    @for $i from 0 through 12 {
+      .order#{$infix}-#{$i} {
+        order: $i !important;
+      }
+    }
+  }
+  
+  // Offset classes
+  @each $breakpoint in (xs, sm, md, lg, xl, xxl) {
+    $infix: if($breakpoint == xs, "", "-#{$breakpoint}");
+    
+    @for $i from 0 through 11 {
+      .offset#{$infix}-#{$i} {
+        $offset: percentage($i / 12);
+        @if $breakpoint == xs {
+          margin-left: $offset;
+        } @else {
+          @include respond-to($breakpoint) {
+            margin-left: $offset;
+          }
+        }
+      }
+    }
+  }
+  
+  // Two-column layout
+  .two-column {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: $spacing-6;
+    
+    @include respond-to(md) {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  
+  // Three-column layout
+  .three-column {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: $spacing-6;
+    
+    @include respond-to(md) {
+      grid-template-columns: 1fr 1fr;
+    }
+    
+    @include respond-to(lg) {
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+  }
+  
+  // Four-column layout
+  .four-column {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: $spacing-6;
+    
+    @include respond-to(md) {
+      grid-template-columns: 1fr 1fr;
+    }
+    
+    @include respond-to(lg) {
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+    }
+  }
+  
+  // Auto-fit grid (for card layouts)
+  .auto-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: $spacing-6;
+  }
+  
+  // Sidebar layout
+  .sidebar-layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: $spacing-6;
+    
+    @include respond-to(lg) {
+      grid-template-columns: 3fr 1fr;
+      
+      &--sidebar-left {
+        grid-template-columns: 1fr 3fr;
+      }
+    }
+  }
+  
+  // Equal height columns
+  .row-equal-height {
+    display: flex;
+    flex-wrap: wrap;
+    
+    > [class*="col-"] {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+  
+  // Gap utilities for flexbox and grid
+  .gap-0 {
+    gap: 0 !important;
+  }
+  
+  .gap-1 {
+    gap: $spacing-1 !important;
+  }
+  
+  .gap-2 {
+    gap: $spacing-2 !important;
+  }
+  
+  .gap-3 {
+    gap: $spacing-3 !important;
+  }
+  
+  .gap-4 {
+    gap: $spacing-4 !important;
+  }
+  
+  .gap-5 {
+    gap: $spacing-5 !important;
+  }
+  
+  .gap-6 {
+    gap: $spacing-6 !important;
+  }
+  
+  .gap-8 {
+    gap: $spacing-8 !important;
+  }
+  
+  .gap-10 {
+    gap: $spacing-10 !important;
+  }
+  
+  // Responsive gap utilities
+  @each $breakpoint in (sm, md, lg, xl, xxl) {
+    @include respond-to($breakpoint) {
+      .gap-#{$breakpoint}-0 {
+        gap: 0 !important;
+      }
+      
+      .gap-#{$breakpoint}-1 {
+        gap: $spacing-1 !important;
+      }
+      
+      .gap-#{$breakpoint}-2 {
+        gap: $spacing-2 !important;
+      }
+      
+      .gap-#{$breakpoint}-3 {
+        gap: $spacing-3 !important;
+      }
+      
+      .gap-#{$breakpoint}-4 {
+        gap: $spacing-4 !important;
+      }
+      
+      .gap-#{$breakpoint}-5 {
+        gap: $spacing-5 !important;
+      }
+      
+      .gap-#{$breakpoint}-6 {
+        gap: $spacing-6 !important;
+      }
+      
+      .gap-#{$breakpoint}-8 {
+        gap: $spacing-8 !important;
+      }
+      
+      .gap-#{$breakpoint}-10 {
+        gap: $spacing-10 !important;
+      }
+    }
+  }

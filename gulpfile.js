@@ -1,17 +1,21 @@
-const gulp = require('gulp');
-const sass = require('gulp-sass')(require('sass'));
-const autoprefixer = require('gulp-autoprefixer');
-const cleanCSS = require('gulp-clean-css');
-const babel = require('gulp-babel');
-const terser = require('gulp-terser');
-const concat = require('gulp-concat');
-const imagemin = require('gulp-imagemin');
-const browserSync = require('browser-sync').create();
-const del = require('del');
-const nunjucksRender = require('gulp-nunjucks-render');
-const sourcemaps = require('gulp-sourcemaps');
-const htmlmin = require('gulp-htmlmin');
-const rename = require('gulp-rename');
+// Convert gulpfile.js to use ES modules
+import gulp from 'gulp';
+import dartSass from 'sass';
+import gulpSass from 'gulp-sass';
+const sass = gulpSass(dartSass);
+import autoprefixer from 'gulp-autoprefixer';
+import cleanCSS from 'gulp-clean-css';
+import babel from 'gulp-babel';
+import terser from 'gulp-terser';
+import concat from 'gulp-concat';
+import imagemin from 'gulp-imagemin';
+import browserSync from 'browser-sync';
+const bs = browserSync.create();
+import del from 'del';
+import nunjucksRender from 'gulp-nunjucks-render';
+import sourcemaps from 'gulp-sourcemaps';
+import htmlmin from 'gulp-htmlmin';
+import rename from 'gulp-rename';
 
 // File paths
 const paths = {
@@ -61,21 +65,31 @@ function styles() {
         .pipe(rename({ suffix: '.min' }))
         .pipe(sourcemaps.write('.'))
         .pipe(gulp.dest(paths.scss.dest))
-        .pipe(browserSync.stream());
+        .pipe(bs.stream());
 }
 
-// Process JavaScript files
-function scripts() {
-    return gulp.src(paths.js.src)
+// Process JavaScript module files - preserve ES module structure
+function scriptModules() {
+    return gulp.src('src/js/modules/*.js')
         .pipe(sourcemaps.init())
         .pipe(babel({
-            presets: ['@babel/env']
+            presets: [['@babel/env', { modules: false }]] // Preserve ES modules
         }))
-        .pipe(terser())
-        .pipe(concat('main.min.js'))
+        .pipe(sourcemaps.write('.'))
+        .pipe(gulp.dest('dist/js/modules'))
+        .pipe(bs.stream());
+}
+
+// Process main JavaScript file - preserve ES module imports
+function scriptMain() {
+    return gulp.src(paths.js.main)
+        .pipe(sourcemaps.init())
+        .pipe(babel({
+            presets: [['@babel/env', { modules: false }]] // Preserve ES modules
+        }))
         .pipe(sourcemaps.write('.'))
         .pipe(gulp.dest(paths.js.dest))
-        .pipe(browserSync.stream());
+        .pipe(bs.stream());
 }
 
 // Process HTML templates
@@ -89,7 +103,7 @@ function html() {
             removeComments: true
         }))
         .pipe(gulp.dest(paths.html.dest))
-        .pipe(browserSync.stream());
+        .pipe(bs.stream());
 }
 
 // Optimize images
@@ -113,7 +127,7 @@ function icons() {
 
 // Watch for changes
 function watch() {
-    browserSync.init({
+    bs.init({
         server: {
             baseDir: './dist'
         },
@@ -121,7 +135,8 @@ function watch() {
     });
 
     gulp.watch(paths.scss.src, styles);
-    gulp.watch(paths.js.src, scripts);
+    gulp.watch('src/js/modules/*.js', scriptModules);
+    gulp.watch(paths.js.main, scriptMain);
     gulp.watch(paths.html.watch, html);
     gulp.watch(paths.assets.images.src, images);
     gulp.watch(paths.assets.fonts.src, fonts);
@@ -129,20 +144,24 @@ function watch() {
 }
 
 // Development task
-const dev = gulp.series(clean, gulp.parallel(styles, scripts, html, images, fonts, icons), watch);
+const dev = gulp.series(clean, gulp.parallel(styles, scriptModules, scriptMain, html, images, fonts, icons), watch);
 
 // Build task
-const build = gulp.series(clean, gulp.parallel(styles, scripts, html, images, fonts, icons));
+const build = gulp.series(clean, gulp.parallel(styles, scriptModules, scriptMain, html, images, fonts, icons));
 
 // Export tasks
-exports.clean = clean;
-exports.styles = styles;
-exports.scripts = scripts;
-exports.html = html;
-exports.images = images;
-exports.fonts = fonts;
-exports.icons = icons;
-exports.watch = watch;
-exports.dev = dev;
-exports.build = build;
-exports.default = dev;
+export {
+    clean,
+    styles,
+    scriptModules,
+    scriptMain,
+    html,
+    images,
+    fonts,
+    icons,
+    watch,
+    dev,
+    build
+};
+
+export default dev;

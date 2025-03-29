@@ -18,6 +18,22 @@ class Router {
             ...options
         };
 
+        // Under construction paths - without leading slash to match actual paths
+        this.underConstructionPaths = [
+            'services/geological-services.html',
+            'services/engineering-services.html',
+            'services/training-services.html',
+            'services/consulting-services.html',
+            'services/safety-equipment.html',
+            'services/technical-support.html',
+            'privacy-policy.html',
+            'terms-of-service.html',
+            'sitemap.html',
+            'projects.html',
+            'news.html',
+            'careers.html'
+        ];
+
         // DOM elements
         this.body = document.body;
         this.contentContainer = document.getElementById('main-content');
@@ -30,6 +46,14 @@ class Router {
         // State
         this.isTransitioning = false;
         this.currentPath = window.location.pathname;
+
+        // If we're on the root, set the path to index.html
+        if (this.currentPath === '/') {
+            this.currentPath = 'index.html';
+        } else if (this.currentPath.startsWith('/')) {
+            // Remove leading slash if present
+            this.currentPath = this.currentPath.substring(1);
+        }
 
         // Initialize
         this.init();
@@ -50,6 +74,9 @@ class Router {
 
         // Set active links for current page
         this.updateActiveLinks();
+
+        // Check if current page is under construction
+        this.checkUnderConstruction(this.currentPath);
     }
 
     /**
@@ -92,11 +119,40 @@ class Router {
     }
 
     /**
+     * Check if path should redirect to under construction
+     * @param {string} path - The path to check
+     * @returns {boolean} - True if path is under construction
+     */
+    isUnderConstruction(path) {
+        // Remove leading slash if present for comparison
+        const normalizedPath = path.startsWith('/') ? path.substring(1) : path;
+        return this.underConstructionPaths.includes(normalizedPath);
+    }
+
+    /**
+     * Check and redirect to under construction if needed
+     * @param {string} path - The path to check
+     */
+    checkUnderConstruction(path) {
+        if (this.isUnderConstruction(path) && path !== 'under-construction.html') {
+            console.log(`Path ${path} is under construction, redirecting...`);
+            this.navigateTo('under-construction.html');
+            return true;
+        }
+        return false;
+    }
+
+    /**
      * Navigate to a new page
      * @param {string} path - The path to navigate to
      * @param {boolean} pushState - Whether to push a new browser history state
      */
     async navigateTo(path, pushState = true) {
+        // Check if path is under construction and redirect if needed
+        if (this.checkUnderConstruction(path)) {
+            return;
+        }
+
         // Don't navigate if we're already on this page
         if (this.currentPath === path) return;
 
@@ -165,6 +221,34 @@ class Router {
         // Check if the page is in cache
         if (this.options.pageCache[path]) {
             return this.options.pageCache[path];
+        }
+
+        // Special handling for under construction page
+        if (path === 'under-construction.html') {
+            try {
+                const response = await fetch(path);
+
+                if (!response.ok) {
+                    // If under-construction.html doesn't exist, check if we're in development mode
+                    console.warn('Under construction page not found, redirecting to index.html');
+                    return this.getPage('index.html');
+                }
+
+                const html = await response.text();
+
+                // Extract the content container from the fetched HTML
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(html, 'text/html');
+                const content = doc.getElementById('main-content').innerHTML;
+
+                // Cache the content
+                this.options.pageCache[path] = content;
+
+                return content;
+            } catch (error) {
+                console.error('Router: Unable to fetch under construction page:', error);
+                return this.getPage('index.html');
+            }
         }
 
         // Fetch the page
@@ -304,8 +388,8 @@ class Router {
         if (!Array.isArray(paths)) return;
 
         paths.forEach(path => {
-            // Only prefetch if not already in cache
-            if (!this.options.pageCache[path]) {
+            // Only prefetch if not already in cache and not under construction
+            if (!this.options.pageCache[path] && !this.isUnderConstruction(path)) {
                 // Use a low-priority fetch to not impact current page performance
                 const prefetchPromise = fetch(path, { priority: 'low' })
                     .then(response => response.text())
@@ -342,7 +426,8 @@ class Router {
                 href.startsWith('http') ||
                 href.startsWith('//') ||
                 href.startsWith('mailto:') ||
-                href.startsWith('tel:')
+                href.startsWith('tel:') ||
+                this.isUnderConstruction(href)
             ) {
                 return;
             }

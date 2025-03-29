@@ -2,20 +2,25 @@
   "name": "ciscon-website",
   "version": "1.0.0",
   "description": "Modern professional website for Ciscon Nigeria Limited",
-  "main": "index.js",
+  "main": "gulpfile.js",
+  "type": "module",
   "scripts": {
     "dev": "gulp dev",
-    "build": "gulp build",
-    "clean": "gulp clean"
+    "build": "gulp build"
   },
+  "keywords": [
+    "website",
+    "corporate",
+    "oil",
+    "gas"
+  ],
   "author": "Ciscon Nigeria Limited",
   "license": "UNLICENSED",
-  "private": true,
-  "devDependencies": {
-    "@babel/core": "^7.23.2",
-    "@babel/preset-env": "^7.23.2",
-    "browser-sync": "^2.29.3",
-    "del": "^6.1.1",
+  "dependencies": {
+    "@babel/core": "^7.18.0",
+    "@babel/preset-env": "^7.18.0",
+    "browser-sync": "^2.27.10",
+    "del": "^6.0.0",
     "gulp": "^4.0.2",
     "gulp-autoprefixer": "^8.0.0",
     "gulp-babel": "^8.0.0",
@@ -28,11 +33,9 @@
     "gulp-sass": "^5.1.0",
     "gulp-sourcemaps": "^3.0.0",
     "gulp-terser": "^2.1.0",
-    "sass": "^1.69.5"
+    "sass": "^1.52.1"
   },
-  "browserslist": [
-    "last 2 versions",
-    "> 0.5%",
-    "not dead"
-  ]
+  "devDependencies": {
+    "@babel/plugin-transform-modules-umd": "^7.25.9"
+  }
 }

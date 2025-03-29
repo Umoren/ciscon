@@ -7,54 +7,123 @@
 import './modules/navigation.js';
 import './modules/slider.js';
 import Router from './modules/router.js';
-import Animations from './modules/animations.js';
 
 // Global module instances
-let router, animations;
+let router
 
 // Initialize when DOM is ready
 document.addEventListener('DOMContentLoaded', function () {
     console.log('Ciscon website initialized');
 
-    // Initialize animations
-    animations = new Animations();
+    // Let AOS initialize from the layout.html script
+    // It's already being initialized there
 
-    // Initialize the router
-    router = new Router({
-        animationDuration: 300,
-        onBeforePageLoad: (fromPath, toPath) => {
-            console.log(`Navigating from ${fromPath} to ${toPath}`);
-            // Reset scroll position
-            window.scrollTo(0, 0);
-        },
-        onAfterPageLoad: (path) => {
-            console.log(`Loaded page: ${path}`);
-            // Reinitialize any modules that need to be reinitialized
-            initPageSpecificFunctionality();
+    try {
+        // Initialize router with error handling
+        router = new Router({
+            animationDuration: 300,
+            onBeforePageLoad: (fromPath, toPath) => {
+                console.log(`Navigating from ${fromPath} to ${toPath}`);
+                window.scrollTo(0, 0);
+            },
+            onAfterPageLoad: (path) => {
+                console.log(`Loaded page: ${path}`);
+                initPageSpecificFunctionality();
 
-            // Refresh animations for new content
-            if (animations) {
-                animations.refresh();
+                // Refresh AOS
+                if (typeof AOS !== 'undefined') {
+                    AOS.refresh();
+                }
             }
-        }
-    });
+        });
+        console.log("Router initialized successfully");
 
-    // Enable prefetching on hover for faster navigation
-    router.enablePrefetchOnHover();
+        // Enable prefetching on hover for faster navigation
+        router.enablePrefetchOnHover();
 
-    // Prefetch common pages
-    router.prefetchPages([
-        '/',
-        '/index.html',
-        '/about.html',
-        '/services.html',
-        '/projects.html',
-        '/contact.html'
-    ]);
+        // Prefetch common pages
+        router.prefetchPages([
+            '/',
+            '/index.html',
+            '/about.html',
+            '/services.html',
+            '/projects.html',
+            '/contact.html'
+        ]);
+    } catch (error) {
+        console.error("Error initializing router:", error);
+        // Simple fallback for navigation if router fails
+        document.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', (e) => {
+                // Let default navigation happen for links
+                console.log("Using default browser navigation");
+            });
+        });
+    }
+
+    // Initialize counter 
+    initCounter();
 
     // Initialize page-specific functionality
     initPageSpecificFunctionality();
 });
+
+/**
+ * Initialize counter 
+ */
+function initCounter() {
+    const counterElements = document.querySelectorAll('[data-count]');
+    if (counterElements.length === 0) return;
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const element = entry.target;
+                const targetValue = parseInt(element.getAttribute('data-count'), 10);
+
+                if (!isNaN(targetValue)) {
+                    animateCounter(element, targetValue);
+                }
+
+                observer.unobserve(element);
+            }
+        });
+    }, {
+        threshold: 0.2
+    });
+
+    counterElements.forEach(element => {
+        observer.observe(element);
+    });
+}
+
+/**
+ * Animate a counter from 0 to target value
+ * @param {HTMLElement} element - The element to animate
+ * @param {number} targetValue - The target number to count to
+ */
+function animateCounter(element, targetValue) {
+    const duration = 2000; // ms
+    const startTime = performance.now();
+    const startValue = 0;
+
+    const updateCounter = (currentTime) => {
+        const elapsedTime = currentTime - startTime;
+        const progress = Math.min(elapsedTime / duration, 1);
+        const easedProgress = 1 - Math.pow(2, -10 * progress); // easeOutExpo
+        const currentValue = Math.floor(startValue + (targetValue - startValue) * easedProgress);
+
+        element.textContent = currentValue.toLocaleString();
+
+        if (progress < 1) {
+            requestAnimationFrame(updateCounter);
+        } else {
+            element.textContent = targetValue.toLocaleString();
+        }
+    };
+
+    requestAnimationFrame(updateCounter);
+}
 
 /**
  * Initialize page-specific functionality

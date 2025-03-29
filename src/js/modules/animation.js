@@ -204,4 +204,5 @@ class Animations {
     }
 }
 
+// Export the class - make sure to export the class itself, not an instance
 export default Animations;

@@ -6,10 +6,13 @@
 // Import modules
 import './modules/navigation.js';
 import './modules/slider.js';
+import Accordion from './modules/accordion.js';
 import Router from './modules/router.js';
+import Animations from './modules/animation.js';
 
 // Global module instances
-let router
+let router;
+let animations;
 
 // Initialize when DOM is ready
 document.addEventListener('DOMContentLoaded', function () {
@@ -17,6 +20,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Let AOS initialize from the layout.html script
     // It's already being initialized there
+
+    // Initialize animations
+    animations = new Animations();
 
     try {
         // Initialize router with error handling
@@ -29,6 +35,9 @@ document.addEventListener('DOMContentLoaded', function () {
             onAfterPageLoad: (path) => {
                 console.log(`Loaded page: ${path}`);
                 initPageSpecificFunctionality();
+
+                // Refresh animations
+                animations.refresh();
 
                 // Refresh AOS
                 if (typeof AOS !== 'undefined') {
@@ -125,13 +134,34 @@ function animateCounter(element, targetValue) {
     requestAnimationFrame(updateCounter);
 }
 
+// Store accordion instances to prevent memory leaks
+let accordionInstances = [];
+
 /**
  * Initialize page-specific functionality
  * This function will be called on initial page load and after each navigation
  */
 function initPageSpecificFunctionality() {
+    // Clear any existing accordion instances to prevent memory leaks
+    accordionInstances.forEach(instance => {
+        if (typeof instance.destroy === 'function') {
+            instance.destroy();
+        }
+    });
+    accordionInstances = [];
+
+    // Initialize accordions
+    const accordionContainers = document.querySelectorAll('.accordion');
+    if (accordionContainers.length > 0) {
+        accordionContainers.forEach((container, index) => {
+            const accordionId = container.id || `accordion-${index}`;
+            const accordion = new Accordion(`#${accordionId}`);
+            accordionInstances.push(accordion);
+        });
+    }
+
     // Project filtering
-    const filterButtons = document.querySelectorAll('.projects-filter button');
+    const filterButtons = document.querySelectorAll('.projects-filter button, .home-projects-filter button');
     if (filterButtons.length > 0) {
         filterButtons.forEach(button => {
             button.addEventListener('click', function () {
@@ -144,8 +174,9 @@ function initPageSpecificFunctionality() {
                 // Get filter value
                 const filterValue = this.getAttribute('data-filter');
 
-                // Filter projects
-                const projectItems = document.querySelectorAll('.project-item');
+                // Get the appropriate project items based on what's on the page
+                const projectItems = document.querySelectorAll('.project-item, .project-card');
+
                 projectItems.forEach(item => {
                     if (filterValue === 'all' || item.getAttribute('data-category') === filterValue) {
                         item.style.display = 'block';
@@ -157,52 +188,33 @@ function initPageSpecificFunctionality() {
         });
     }
 
-    // Accordion functionality
-    const accordionButtons = document.querySelectorAll('.accordion-button');
-    if (accordionButtons.length > 0) {
-        accordionButtons.forEach(button => {
-            button.addEventListener('click', function () {
-                const isExpanded = this.getAttribute('aria-expanded') === 'true';
-                const targetId = this.getAttribute('data-bs-target');
-                const target = document.querySelector(targetId);
-
-                // Close all other accordion items
-                document.querySelectorAll('.accordion-collapse.show').forEach(item => {
-                    if (item !== target) {
-                        item.classList.remove('show');
-                        const header = document.querySelector(`[data-bs-target="#${item.id}"]`);
-                        if (header) {
-                            header.classList.add('collapsed');
-                            header.setAttribute('aria-expanded', 'false');
-                        }
-                    }
-                });
-
-                // Toggle the clicked accordion item
-                if (isExpanded) {
-                    this.classList.add('collapsed');
-                    this.setAttribute('aria-expanded', 'false');
-                    target.classList.remove('show');
-                } else {
-                    this.classList.remove('collapsed');
-                    this.setAttribute('aria-expanded', 'true');
-                    target.classList.add('show');
-                }
-            });
-        });
-    }
-
     // Form validation
     const forms = document.querySelectorAll('form');
     if (forms.length > 0) {
         forms.forEach(form => {
             form.addEventListener('submit', function (e) {
-                if (!form.checkValidity()) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                }
+                e.preventDefault();
 
-                form.classList.add('was-validated');
+                // Simple validation
+                let isValid = true;
+                const requiredFields = this.querySelectorAll('[required]');
+
+                requiredFields.forEach(field => {
+                    if (!field.value.trim()) {
+                        isValid = false;
+                        field.classList.add('is-invalid');
+                    } else {
+                        field.classList.remove('is-invalid');
+                    }
+                });
+
+                if (isValid) {
+                    // Show success message (in a real implementation, you would submit the form to your backend)
+                    alert('Thank you for your message! We will get back to you soon.');
+                    this.reset();
+                } else {
+                    alert('Please fill in all required fields.');
+                }
             });
         });
     }
@@ -225,7 +237,7 @@ function initPageSpecificFunctionality() {
     });
 
     // Video play buttons
-    const videoPlayButtons = document.querySelectorAll('.video-play-button');
+    const videoPlayButtons = document.querySelectorAll('.video-play-button, .home-why-us-video-play');
     if (videoPlayButtons.length > 0) {
         videoPlayButtons.forEach(button => {
             button.addEventListener('click', function (e) {
@@ -235,7 +247,7 @@ function initPageSpecificFunctionality() {
         });
     }
 
-    // Testimonial sliders
+    // Initialize testimonial sliders
     initTestimonialSliders();
 }
 
@@ -243,14 +255,14 @@ function initPageSpecificFunctionality() {
  * Initialize testimonial sliders
  */
 function initTestimonialSliders() {
-    const sliders = document.querySelectorAll('.testimonial-slider');
+    const sliders = document.querySelectorAll('.testimonial-slider, .home-testimonials-slider');
 
     sliders.forEach(slider => {
-        const wrapper = slider.querySelector('.slider-wrapper');
-        const slides = slider.querySelectorAll('.slider-slide');
-        const dots = slider.querySelectorAll('.slider-dots button');
-        const prevButton = slider.querySelector('.slider-arrow-prev');
-        const nextButton = slider.querySelector('.slider-arrow-next');
+        const wrapper = slider.querySelector('.slider-wrapper, .home-testimonials-slider-wrapper');
+        const slides = slider.querySelectorAll('.slider-slide, .home-testimonials-slider-slide');
+        const dots = slider.querySelectorAll('.slider-dots button, .home-testimonials-slider-dots button');
+        const prevButton = slider.querySelector('.slider-arrow-prev, .home-testimonials-slider-arrow:first-child');
+        const nextButton = slider.querySelector('.slider-arrow-next, .home-testimonials-slider-arrow:last-child');
 
         if (!wrapper || slides.length === 0) return;
 

@@ -186,141 +186,235 @@
   }
   
   // Core values section
-  .core-values {
-    padding: $spacing-10 0;
+ // Enhance core values section styling in the _about.scss file
+
+.core-values {
+  padding: $spacing-10 0;
+  
+  .section-header {
+    text-align: center;
+    margin-bottom: $spacing-6;
     
-    .section-header {
-      text-align: center;
-      margin-bottom: $spacing-6;
+    .section-subtitle {
+      display: block;
+      font-size: $font-size-sm;
+      font-weight: $font-weight-semibold;
+      color: $color-primary;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: $spacing-2;
+    }
+    
+    .section-title {
+      font-size: $font-size-2xl;
+      font-weight: $font-weight-bold;
+      color: $color-tertiary;
+      margin-bottom: $spacing-4;
       
-      .section-subtitle {
-        display: block;
-        font-size: $font-size-sm;
-        font-weight: $font-weight-semibold;
-        color: $color-primary;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        margin-bottom: $spacing-2;
-      }
-      
-      .section-title {
-        font-size: $font-size-2xl;
-        font-weight: $font-weight-bold;
-        color: $color-tertiary;
-        margin-bottom: $spacing-4;
-        
-        @include respond-to(md) {
-          font-size: $font-size-3xl;
-        }
-      }
-      
-      .section-description {
-        max-width: 700px;
-        margin: 0 auto;
-        color: $color-gray;
+      @include respond-to(md) {
+        font-size: $font-size-3xl;
       }
     }
     
-    &-item {
-      text-align: center;
-      margin-bottom: $spacing-6;
+    .section-description {
+      max-width: 100%!important;
+      margin: 0 !important;
+      color: $color-gray;
+    }
+  }
+  
+  &-card {
+    height: 100%;
+    background-color: $color-white;
+    border-radius: $border-radius-lg;
+    box-shadow: $shadow-sm;
+    padding: $spacing-6;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    margin-bottom: $spacing-6;
+    
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: $shadow;
+    }
+    
+    &-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 80px;
+      height: 80px;
+      background-color: rgba($color-primary, 0.1);
+      border-radius: 50%;
+      margin: 0 auto $spacing-4;
       
-      &-icon {
-        display: block;
+      svg {
         color: $color-primary;
-        font-size: $font-size-3xl;
-        margin-bottom: $spacing-4;
+        width: 40px;
+        height: 40px;
       }
+    }
+    
+    &-title {
+      font-size: $font-size-lg;
+      font-weight: $font-weight-semibold;
+      color: $color-tertiary;
+      margin-bottom: $spacing-3;
+    }
+    
+    p {
+      color: $color-dark-gray;
+      margin-bottom: 0;
+      line-height: 1.6;
+    }
+  }
+}
+  
+  // Why choose us section
+  // Enhanced Why Choose Us section styling for _about.scss
+
+.why-choose-us {
+  padding: $spacing-10 0;
+  background-color: $color-tertiary;
+  color: $color-white;
+  
+  .section-header {
+    text-align: center;
+    margin-bottom: $spacing-8;
+    
+    .section-subtitle {
+      display: block;
+      font-size: $font-size-sm;
+      font-weight: $font-weight-semibold;
+      color: rgba($color-white, 0.9);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: $spacing-2;
+    }
+    
+    .section-title {
+      font-size: $font-size-2xl;
+      font-weight: $font-weight-bold;
+      color: $color-white;
+      margin-bottom: $spacing-4;
       
-      &-title {
+      @include respond-to(md) {
+        font-size: $font-size-3xl;
+      }
+    }
+    
+    .section-description {
+      max-width: 700px;
+      margin: 0 auto;
+      color: rgba($color-white, 0.8);
+    }
+  }
+  
+  &-card {
+    height: 100%;
+    background-color: rgba($color-white, 0.05);
+    border-radius: $border-radius-lg;
+    padding: $spacing-6;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    backdrop-filter: blur(5px);
+    transition: transform 0.3s ease, background-color 0.3s ease;
+    margin-bottom: $spacing-6;
+    border: 1px solid rgba($color-white, 0.1);
+    
+    &:hover {
+      transform: translateY(-5px);
+      background-color: rgba($color-white, 0.1);
+    }
+    
+    &-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 80px;
+      height: 80px;
+      background-color: $color-primary;
+      border-radius: 50%;
+      margin-bottom: $spacing-4;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      
+      svg {
+        color: $color-white;
+        width: 32px;
+        height: 32px;
+      }
+    }
+    
+    &-title {
+      font-size: $font-size-lg;
+      font-weight: $font-weight-semibold;
+      color: $color-white;
+      margin-bottom: $spacing-3;
+    }
+    
+    p {
+      color: rgba($color-white, 0.85);
+      margin-bottom: 0;
+      line-height: 1.6;
+    }
+  }
+  
+  // Alternative style with horizontal layout for desktop
+  &-item {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: $spacing-6;
+    background-color: rgba($color-white, 0.05);
+    border-radius: $border-radius-lg;
+    padding: $spacing-5;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+    border: 1px solid rgba($color-white, 0.1);
+    
+    &:hover {
+      transform: translateY(-5px);
+      background-color: rgba($color-white, 0.1);
+    }
+    
+    &-icon {
+      flex-shrink: 0;
+      margin-right: $spacing-4;
+      
+      .icon-circle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 64px;
+        height: 64px;
+        background-color: $color-primary;
+        border-radius: 50%;
+        color: $color-white;
+        
+        svg {
+          width: 30px;
+          height: 30px;
+        }
+      }
+    }
+    
+    &-content {
+      h3 {
         font-size: $font-size-lg;
         font-weight: $font-weight-semibold;
-        color: $color-tertiary;
-        margin-bottom: $spacing-3;
+        margin-bottom: $spacing-2;
+        color: $color-white;
       }
       
       p {
-        color: $color-dark-gray;
+        color: rgba($color-white, 0.85);
         margin-bottom: 0;
+        line-height: 1.6;
       }
     }
   }
-  
-  // Why choose us section
-  .why-choose-us {
-    padding: $spacing-10 0;
-    background-color: $color-tertiary;
-    color: $color-white;
-    
-    .section-header {
-      text-align: center;
-      margin-bottom: $spacing-6;
-      
-      .section-subtitle {
-        display: block;
-        font-size: $font-size-sm;
-        font-weight: $font-weight-semibold;
-        color: $color-white;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        margin-bottom: $spacing-2;
-      }
-      
-      .section-title {
-        font-size: $font-size-2xl;
-        font-weight: $font-weight-bold;
-        color: $color-white;
-        margin-bottom: $spacing-4;
-        
-        @include respond-to(md) {
-          font-size: $font-size-3xl;
-        }
-      }
-      
-      .section-description {
-        max-width: 700px;
-        margin: 0 auto;
-        color: rgba($color-white, 0.8);
-      }
-    }
-    
-    &-item {
-      display: flex;
-      margin-bottom: $spacing-5;
-      
-      &-icon {
-        flex-shrink: 0;
-        margin-right: $spacing-4;
-        
-        .icon-circle {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          width: 60px;
-          height: 60px;
-          background-color: $color-primary;
-          border-radius: 50%;
-          color: $color-white;
-          font-size: $font-size-xl;
-        }
-      }
-      
-      &-content {
-        h3 {
-          font-size: $font-size-lg;
-          font-weight: $font-weight-semibold;
-          margin-bottom: $spacing-2;
-          color: $color-white;
-        }
-        
-        p {
-          color: rgba($color-white, 0.8);
-          margin-bottom: 0;
-        }
-      }
-    }
-  }
-  
+}
+
   // Team section
   .team-section {
     padding: $spacing-10 0;
@@ -351,9 +445,10 @@
       }
       
       .section-description {
-        max-width: 700px;
         margin: 0 auto;
         color: $color-gray;
+        width: 100%;
+        text-align: center;
       }
     }
   }

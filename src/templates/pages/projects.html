@@ -1,0 +1,90 @@
+{% extends "partials/layout.html" %}
+
+{% block title %}Ciscon Nigeria Limited - Indigenous Oil & Gas Services Company{% endblock %}
+{% block description %}Ciscon is an indigenous Nigerian company providing various products and technical services to the
+petroleum industry with over 30 years of excellence.{% endblock %}
+
+{% block content %}
+
+
+<!-- Projects Section -->
+<section class="home-projects">
+    <div class="container">
+        <div class="home-projects-header">
+            <span class="home-projects-subtitle">Our Projects</span>
+            <h2 class="home-projects-title">Featured Projects</h2>
+            <p class="home-projects-description">Explore some of our recent projects and see how we've helped our
+                clients achieve their goals.</p>
+        </div>
+        <div class="home-projects-filter">
+            <button class="active" data-filter="all">All</button>
+            <button data-filter="geological">Geological</button>
+            <button data-filter="engineering">Engineering</button>
+            <button data-filter="consulting">Consulting</button>
+            <button data-filter="training">Training</button>
+        </div>
+        <div class="home-projects-grid">
+            <div class="project-card" data-category="geological">
+                <div class="project-card-img-wrapper">
+                    <img src="assets/images/project-1.jpg" alt="Geological survey project">
+                    <div class="project-card-overlay">
+                        <a href="projects/project-1.html" class="btn btn-primary project-card-action">View Project</a>
+                    </div>
+                </div>
+                <div class="project-card-body">
+                    <span class="project-card-category">Geological</span>
+                    <h3 class="project-card-title">Offshore Geological Survey</h3>
+                    <p class="project-card-description">Comprehensive geological survey for offshore drilling operations
+                        in the Niger Delta.</p>
+                </div>
+            </div>
+            <div class="project-card" data-category="engineering">
+                <div class="project-card-img-wrapper">
+                    <img src="assets/images/project-2.jpg" alt="Equipment installation project">
+                    <div class="project-card-overlay">
+                        <a href="projects/project-2.html" class="btn btn-primary project-card-action">View Project</a>
+                    </div>
+                </div>
+                <div class="project-card-body">
+                    <span class="project-card-category">Engineering</span>
+                    <h3 class="project-card-title">Equipment Installation</h3>
+                    <p class="project-card-description">Installation and commissioning of processing equipment for a
+                        major oil company.</p>
+                </div>
+            </div>
+            <div class="project-card" data-category="consulting">
+                <div class="project-card-img-wrapper">
+                    <img src="assets/images/project-3.jpg" alt="Technical consulting project">
+                    <div class="project-card-overlay">
+                        <a href="projects/project-3.html" class="btn btn-primary project-card-action">View Project</a>
+                    </div>
+                </div>
+                <div class="project-card-body">
+                    <span class="project-card-category">Consulting</span>
+                    <h3 class="project-card-title">Technical Consulting</h3>
+                    <p class="project-card-description">Technical evaluation and optimization of existing oil production
+                        facilities.</p>
+                </div>
+            </div>
+        </div>
+        <div class="home-projects-cta">
+            <a href="projects.html" class="btn btn-primary btn-lg">View All Projects</a>
+        </div>
+    </div>
+</section>
+
+
+
+<!-- CTA Section -->
+<section class="home-cta">
+    <div class="container">
+        <h2 class="home-cta-title">Ready to Work With Us?</h2>
+        <p class="home-cta-description">Let us help you achieve your goals with our expert services and solutions
+            tailored to your needs.</p>
+        <div class="home-cta-buttons">
+            <a href="contact.html" class="btn btn-primary btn-lg">Contact Us</a>
+            <a href="about.html" class="btn btn-outline-light btn-lg">Learn More</a>
+        </div>
+    </div>
+</section>
+{% endblock %}

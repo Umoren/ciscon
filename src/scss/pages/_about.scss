@@ -191,39 +191,46 @@
 .core-values {
   padding: $spacing-10 0;
   
-  .section-header {
-    text-align: center;
-    margin-bottom: $spacing-6;
-    
-    .section-subtitle {
-      display: block;
-      font-size: $font-size-sm;
-      font-weight: $font-weight-semibold;
-      color: $color-primary;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      margin-bottom: $spacing-2;
-    }
-    
-    .section-title {
-      font-size: $font-size-2xl;
-      font-weight: $font-weight-bold;
-      color: $color-tertiary;
-      margin-bottom: $spacing-4;
+  .core-values {
+    .section-header, 
+    .text-center {
+      text-align: center;
+      margin-bottom: $spacing-6;
+      max-width: 900px;
+      margin-left: auto;
+      margin-right: auto;
       
-      @include respond-to(md) {
-        font-size: $font-size-3xl;
+      .section-subtitle {
+        color: $color-primary;
+        font-weight: $font-weight-semibold;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: $spacing-2;
+        display: block;
+      }
+      
+      .section-title {
+        color: $color-tertiary;
+        font-size: $font-size-2xl;
+        font-weight: $font-weight-bold;
+        margin-bottom: $spacing-3;
+        
+        @include respond-to(md) {
+          font-size: $font-size-3xl;
+        }
+      }
+      
+      .section-description {
+        color: $color-dark-gray;
+        max-width: 700px;
+        margin: 0 auto $spacing-6;
+        line-height: 1.6;
       }
     }
-    
-    .section-description {
-      max-width: 100%!important;
-      margin: 0 !important;
-      color: $color-gray;
-    }
+  }
   }
   
-  &-card {
+  .core-values-card {
     height: 100%;
     background-color: $color-white;
     border-radius: $border-radius-lg;
@@ -268,7 +275,7 @@
       line-height: 1.6;
     }
   }
-}
+
   
   // Why choose us section
   // Enhanced Why Choose Us section styling for _about.scss
@@ -278,25 +285,28 @@
   background-color: $color-tertiary;
   color: $color-white;
   
-  .section-header {
+  .section-header,
+  .text-center {
     text-align: center;
-    margin-bottom: $spacing-8;
+    margin-bottom: $spacing-6;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
     
     .section-subtitle {
-      display: block;
-      font-size: $font-size-sm;
+      color: $color-white; // Ensure high contrast
       font-weight: $font-weight-semibold;
-      color: rgba($color-white, 0.9);
       text-transform: uppercase;
       letter-spacing: 1px;
       margin-bottom: $spacing-2;
+      display: block;
     }
     
     .section-title {
+      color: $color-white; // Ensure high contrast
       font-size: $font-size-2xl;
       font-weight: $font-weight-bold;
-      color: $color-white;
-      margin-bottom: $spacing-4;
+      margin-bottom: $spacing-3;
       
       @include respond-to(md) {
         font-size: $font-size-3xl;
@@ -304,9 +314,10 @@
     }
     
     .section-description {
+      color: rgba($color-white, 0.9); // High contrast but slightly softer than title
       max-width: 700px;
-      margin: 0 auto;
-      color: rgba($color-white, 0.8);
+      margin: 0 auto $spacing-6;
+      line-height: 1.6;
     }
   }
   

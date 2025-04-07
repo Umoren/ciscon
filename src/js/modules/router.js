@@ -20,16 +20,7 @@ class Router {
 
         // Under construction paths - without leading slash to match actual paths
         this.underConstructionPaths = [
-            'services/geological-services.html',
-            'services/engineering-services.html',
-            'services/training-services.html',
-            'services/consulting-services.html',
-            'services/safety-equipment.html',
-            'services/technical-support.html',
-            'privacy-policy.html',
-            'terms-of-service.html',
             'sitemap.html',
-            'projects.html',
             'news.html',
             'careers.html'
         ];

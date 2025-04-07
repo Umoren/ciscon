@@ -1,0 +1,543 @@
+/*
+ * Services Pages
+ * Styles specific to the services pages
+ */
+
+// Services overview page
+.service-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    height: 100%;
+    
+    &-link {
+      display: block;
+      height: 100%;
+      color: inherit;
+      
+      &:hover, &:focus {
+        text-decoration: none;
+        
+        .service-card-button {
+          background-color: $color-primary;
+          color: $color-white;
+          border-color: $color-primary;
+        }
+      }
+    }
+    
+    &:hover {
+      transform: translateY(-10px);
+      box-shadow: $shadow;
+    }
+    
+    &-icon-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: $spacing-4;
+      
+      .service-card-icon {
+        width: 64px;
+        height: 64px;
+        color: $color-primary;
+      }
+    }
+    
+    &-title {
+      font-weight: $font-weight-semibold;
+      margin-bottom: $spacing-3;
+      color: $color-tertiary;
+      transition: color 0.3s ease;
+    }
+    
+    &-button {
+      transition: all 0.3s ease;
+      font-weight: $font-weight-medium;
+    }
+  }
+  
+  // Individual service page common styles
+  .service {
+    &-header {
+      background-color: $color-light;
+      padding: $spacing-8 0;
+      margin-bottom: $spacing-8;
+      
+      &-title {
+        font-size: $font-size-2xl;
+        font-weight: $font-weight-bold;
+        color: $color-tertiary;
+        margin-bottom: $spacing-3;
+        
+        @include respond-to(md) {
+          font-size: $font-size-3xl;
+        }
+      }
+      
+      &-description {
+        max-width: 800px;
+        margin-bottom: 0;
+        color: $color-gray;
+      }
+    }
+    
+    &-section {
+      padding: $spacing-8 0;
+      
+      &:nth-child(even) {
+        background-color: $color-light;
+      }
+      
+      &-title {
+        font-size: $font-size-2xl;
+        font-weight: $font-weight-bold;
+        color: $color-tertiary;
+        margin-bottom: $spacing-4;
+      }
+      
+      &-subtitle {
+        font-size: $font-size-lg;
+        color: $color-gray;
+        margin-bottom: $spacing-6;
+      }
+    }
+    
+    &-feature {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: $spacing-4;
+      
+      &-icon {
+        flex-shrink: 0;
+        width: 48px;
+        height: 48px;
+        margin-right: $spacing-4;
+        color: $color-primary;
+      }
+      
+      &-content {
+        h4 {
+          font-weight: $font-weight-semibold;
+          color: $color-tertiary;
+          margin-bottom: $spacing-2;
+        }
+        
+        p {
+          color: $color-gray;
+          margin-bottom: 0;
+        }
+      }
+    }
+    
+    &-benefit {
+      background-color: $color-white;
+      padding: $spacing-5;
+      border-radius: $border-radius;
+      box-shadow: $shadow-sm;
+      margin-bottom: $spacing-4;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      
+      &:hover {
+        transform: translateY(-5px);
+        box-shadow: $shadow;
+      }
+      
+      &-icon {
+        font-size: $font-size-2xl;
+        color: $color-primary;
+        margin-bottom: $spacing-3;
+      }
+      
+      &-title {
+        font-weight: $font-weight-semibold;
+        color: $color-tertiary;
+        margin-bottom: $spacing-2;
+      }
+      
+      &-description {
+        color: $color-gray;
+        margin-bottom: 0;
+      }
+    }
+    
+    &-cta {
+      padding: $spacing-10 0;
+      background-color: $color-primary;
+      color: $color-white;
+      text-align: center;
+      
+      &-title {
+        font-size: $font-size-2xl;
+        font-weight: $font-weight-bold;
+        margin-bottom: $spacing-4;
+        
+        @include respond-to(md) {
+          font-size: $font-size-3xl;
+        }
+      }
+      
+      &-description {
+        max-width: 700px;
+        margin: 0 auto $spacing-6;
+        font-size: $font-size-lg;
+        opacity: 0.9;
+      }
+      
+      &-buttons {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: $spacing-3;
+      }
+    }
+  }
+  
+  // Well completion service specific styles
+  .well-completion {
+    &-systems {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: $spacing-6;
+      
+      @include respond-to(md) {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      
+      @include respond-to(lg) {
+        grid-template-columns: repeat(3, 1fr);
+      }
+      
+      &-item {
+        background-color: $color-white;
+        padding: $spacing-5;
+        border-radius: $border-radius;
+        box-shadow: $shadow-sm;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        
+        &:hover {
+          transform: translateY(-5px);
+          box-shadow: $shadow;
+        }
+        
+        &-icon {
+          font-size: $font-size-2xl;
+          color: $color-primary;
+          margin-bottom: $spacing-3;
+        }
+        
+        &-title {
+          font-weight: $font-weight-semibold;
+          color: $color-tertiary;
+          margin-bottom: $spacing-3;
+        }
+        
+        ul {
+          padding-left: $spacing-4;
+          margin-bottom: 0;
+          
+          li {
+            margin-bottom: $spacing-2;
+            
+            &:last-child {
+              margin-bottom: 0;
+            }
+          }
+        }
+      }
+    }
+  }
+  
+  // Liner hanger service specific styles
+  .liner-hanger {
+    &-types {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: $spacing-6;
+      
+      @include respond-to(md) {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      
+      @include respond-to(lg) {
+        grid-template-columns: repeat(3, 1fr);
+      }
+      
+      &-item {
+        background-color: $color-white;
+        padding: $spacing-5;
+        border-radius: $border-radius;
+        box-shadow: $shadow-sm;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        
+        &:hover {
+          transform: translateY(-5px);
+          box-shadow: $shadow;
+        }
+        
+        &-icon {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 64px;
+          height: 64px;
+          background-color: rgba($color-primary, 0.1);
+          color: $color-primary;
+          border-radius: 50%;
+          margin-bottom: $spacing-4;
+        }
+        
+        &-title {
+          font-weight: $font-weight-semibold;
+          color: $color-tertiary;
+          margin-bottom: $spacing-3;
+        }
+        
+        ul {
+          padding-left: $spacing-4;
+          margin-bottom: 0;
+          
+          li {
+            margin-bottom: $spacing-2;
+            
+            &:last-child {
+              margin-bottom: 0;
+            }
+          }
+        }
+      }
+    }
+  }
+  
+  // Tubular services specific styles
+  .tubular-services {
+    &-features {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: $spacing-6;
+      
+      @include respond-to(md) {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      
+      @include respond-to(lg) {
+        grid-template-columns: repeat(3, 1fr);
+      }
+      
+      &-item {
+        display: flex;
+        align-items: flex-start;
+        
+        &-icon {
+          flex-shrink: 0;
+          width: 48px;
+          height: 48px;
+          margin-right: $spacing-4;
+          color: $color-primary;
+        }
+        
+        &-content {
+          h4 {
+            font-weight: $font-weight-semibold;
+            color: $color-tertiary;
+            margin-bottom: $spacing-2;
+          }
+          
+          p {
+            color: $color-gray;
+            margin-bottom: 0;
+          }
+        }
+      }
+    }
+  }
+  
+  // Geological services specific styles
+  .geological-services {
+    &-categories {
+      margin-bottom: $spacing-6;
+      
+      &-tabs {
+        display: flex;
+        flex-wrap: wrap;
+        border-bottom: 1px solid $color-light-gray;
+        margin-bottom: $spacing-5;
+        
+        button {
+          padding: $spacing-3 $spacing-4;
+          background: none;
+          border: none;
+          border-bottom: 3px solid transparent;
+          font-weight: $font-weight-medium;
+          color: $color-gray;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          
+          &:hover {
+            color: $color-primary;
+          }
+          
+          &.active {
+            color: $color-primary;
+            border-bottom-color: $color-primary;
+          }
+        }
+      }
+      
+      &-content {
+        .category {
+          display: none;
+          
+          &.active {
+            display: block;
+          }
+        }
+      }
+    }
+  }
+  
+  // Drilling tools rental specific styles
+  .drilling-tools {
+    &-products {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: $spacing-6;
+      
+      @include respond-to(md) {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      
+      @include respond-to(lg) {
+        grid-template-columns: repeat(3, 1fr);
+      }
+      
+      &-item {
+        background-color: $color-white;
+        padding: $spacing-5;
+        border-radius: $border-radius;
+        box-shadow: $shadow-sm;
+        text-align: center;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        
+        &:hover {
+          transform: translateY(-5px);
+          box-shadow: $shadow;
+        }
+        
+        img {
+          max-width: 120px;
+          margin: 0 auto $spacing-4;
+        }
+        
+        &-title {
+          font-weight: $font-weight-semibold;
+          color: $color-tertiary;
+          margin-bottom: $spacing-3;
+        }
+        
+        p {
+          color: $color-gray;
+          margin-bottom: 0;
+        }
+      }
+    }
+  }
+  
+  // Cementing aids specific styles
+  .cementing-aids {
+    &-advantages {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: $spacing-6;
+      
+      @include respond-to(md) {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      
+      &-item {
+        display: flex;
+        align-items: center;
+        background-color: $color-white;
+        padding: $spacing-4;
+        border-radius: $border-radius;
+        box-shadow: $shadow-sm;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        
+        &:hover {
+          transform: translateY(-5px);
+          box-shadow: $shadow;
+        }
+        
+        &-icon {
+          flex-shrink: 0;
+          width: 64px;
+          height: 64px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background-color: rgba($color-primary, 0.1);
+          color: $color-primary;
+          border-radius: 50%;
+          margin-right: $spacing-4;
+        }
+        
+        &-content {
+          h4 {
+            font-weight: $font-weight-semibold;
+            color: $color-tertiary;
+            margin-bottom: $spacing-2;
+          }
+          
+          p {
+            color: $color-gray;
+            margin-bottom: 0;
+          }
+        }
+      }
+    }
+  }
+  
+  // Machine shop specific styles
+  .machine-shop {
+    &-capabilities {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: $spacing-6;
+      
+      @include respond-to(md) {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      
+      @include respond-to(lg) {
+        grid-template-columns: repeat(3, 1fr);
+      }
+      
+      &-item {
+        background-color: $color-white;
+        padding: $spacing-5;
+        border-radius: $border-radius;
+        box-shadow: $shadow-sm;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        
+        &:hover {
+          transform: translateY(-5px);
+          box-shadow: $shadow;
+        }
+        
+        &-icon {
+          color: $color-primary;
+          font-size: $font-size-2xl;
+          margin-bottom: $spacing-3;
+        }
+        
+        &-title {
+          font-weight: $font-weight-semibold;
+          color: $color-tertiary;
+          margin-bottom: $spacing-3;
+        }
+        
+        p {
+          color: $color-gray;
+          margin-bottom: 0;
+        }
+      }
+    }
+  }

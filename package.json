@@ -36,6 +36,7 @@
     "sass": "^1.52.1"
   },
   "devDependencies": {
-    "@babel/plugin-transform-modules-umd": "^7.25.9"
+    "@babel/plugin-transform-modules-umd": "^7.25.9",
+    "gulp-replace": "^1.1.4"
   }
 }

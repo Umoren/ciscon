@@ -13,7 +13,11 @@
 
     <!-- Favicon -->
     {% block base_url %}
-    {% set base_url = '' %}
+    {% if page.path and page.path.split('/').length > 1 %}
+    {% set base_url = '../' %}
+    {% else %}
+    {% set base_url = './' %}
+    {% endif %}
     {% endblock %}
     <link rel="apple-touch-icon" sizes="180x180" href="{{ base_url }}assets/icons/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="{{ base_url }}assets/icons/favicon-32x32.png">
@@ -29,7 +33,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <!-- CSS -->
+    {% if base_url %}
     <link rel="stylesheet" href="{{ base_url }}css/main.min.css">
+    {% else %}
+    <link rel="stylesheet" href="./css/main.min.css">
+    {% endif %}
 
     <!-- AOS - Animate On Scroll Library -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css">

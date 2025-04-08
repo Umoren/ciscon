@@ -16,6 +16,7 @@ import nunjucksRender from 'gulp-nunjucks-render';
 import sourcemaps from 'gulp-sourcemaps';
 import htmlmin from 'gulp-htmlmin';
 import rename from 'gulp-rename';
+import replace from 'gulp-replace';
 
 // File paths
 const paths = {
@@ -66,6 +67,39 @@ function styles() {
         .pipe(sourcemaps.write('.'))
         .pipe(gulp.dest(paths.scss.dest))
         .pipe(bs.stream());
+}
+
+function fixPaths() {
+    // Always use relative paths for maximum compatibility with FTP and other deployments
+    const BASE = './'; 
+
+    // Process top-level HTML files
+    gulp.src(['dist/*.html'])
+        // Fix href attributes (for HTML files)
+        .pipe(replace(/href="\//g, `href="${BASE}`))
+        // Fix src attributes (for images, scripts, etc.)
+        .pipe(replace(/src="\//g, `src="${BASE}`))
+        // Fix url() references in inline styles
+        .pipe(replace(/url\(\//g, `url(${BASE}`))
+        .pipe(gulp.dest('dist/'));
+    
+    // Process nested HTML files (with different relative path)
+    return gulp.src(['dist/**/*.html', '!dist/*.html'])
+        // Fix href attributes (for HTML files)
+        .pipe(replace(/href="\//g, href => {
+            return href.replace('href="/', 'href="../');
+        }))
+        // Fix src attributes (for images, scripts, etc.)
+        .pipe(replace(/src="\//g, src => {
+            return src.replace('src="/', 'src="../');
+        }))
+        // Fix url() references in inline styles
+        .pipe(replace(/url\(\//g, url => {
+            return url.replace('url(/', 'url(../');
+        }))
+        // Fix CSS path
+        .pipe(replace(/href="\.\/css\//g, 'href="../css/'))
+        .pipe(gulp.dest('dist/'));
 }
 
 // Process JavaScript module files - preserve ES module structure
@@ -143,12 +177,19 @@ function watch() {
     gulp.watch(paths.assets.icons.src, icons);
 }
 
-// Development task
-const dev = gulp.series(clean, gulp.parallel(styles, scriptModules, scriptMain, html, images, fonts, icons), watch);
+const dev = gulp.series(
+    clean,
+    gulp.parallel(styles, scriptModules, scriptMain, html, images, fonts, icons),
+    fixPaths, // Run after HTML is generated
+    watch
+);
 
 // Build task
-const build = gulp.series(clean, gulp.parallel(styles, scriptModules, scriptMain, html, images, fonts, icons));
-
+const build = gulp.series(
+    clean,
+    gulp.parallel(styles, scriptModules, scriptMain, html, images, fonts, icons),
+    fixPaths // Run after HTML is generated
+);
 // Export tasks
 export {
     clean,

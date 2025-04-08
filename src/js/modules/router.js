@@ -134,15 +134,59 @@ class Router {
     }
 
     /**
+ * Resolve a relative path based on the current page path
+ * @param {string} path - The path to resolve
+ * @returns {string} - The resolved path
+ */
+    resolvePath(path) {
+        // If the path already starts with a slash, convert to relative (for consistency)
+        if (path.startsWith('/')) {
+            return './' + path.substring(1);
+        }
+
+        // If it starts with ./ or ../, it's base-relative
+        if (path.startsWith('./')) {
+            // If we're in a subdirectory
+            if (this.currentPath.includes('/')) {
+                // Get the subdirectory depth
+                const depth = this.currentPath.split('/').length - 1;
+
+                // Add ../ prefix for each level deep we are
+                let prefix = '';
+                for (let i = 0; i < depth; i++) {
+                    prefix += '../';
+                }
+
+                return prefix + path.substring(2);
+            }
+
+            return path;
+        }
+
+        // Otherwise, resolve relative to current path
+        const currentDir = this.currentPath.includes('/')
+            ? this.currentPath.substring(0, this.currentPath.lastIndexOf('/') + 1)
+            : '';
+
+        return currentDir + path;
+    }
+
+    /**
      * Navigate to a new page
      * @param {string} path - The path to navigate to
      * @param {boolean} pushState - Whether to push a new browser history state
      */
     async navigateTo(path, pushState = true) {
+
+        path = this.resolvePath(path);
+
+
         // Check if path is under construction and redirect if needed
         if (this.checkUnderConstruction(path)) {
             return;
         }
+
+
 
         // Don't navigate if we're already on this page
         if (this.currentPath === path) return;

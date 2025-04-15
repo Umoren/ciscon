@@ -75,6 +75,8 @@
       
       &-description {
         max-width: 800px;
+        margin: 0 auto $spacing-6;
+        text-align: center;
         margin-bottom: 0;
         color: $color-gray;
       }
@@ -155,6 +157,8 @@
       
       &-description {
         color: $color-gray;
+        margin: 0 auto $spacing-6;
+        text-align: center;
         margin-bottom: 0;
       }
     }
